@@ -1,33 +1,36 @@
 import React, { useState } from 'react';
 import { Grid, Image } from 'semantic-ui-react';
 import { useQuery } from "@apollo/client";
-import { GET_USER } from '../../gql/user';
-import useAuth from '../../hooks/useAuth';
-import UserNotFound from '../UserNotFound';
-import BasicModal from '../Modal/BasicModal';
+import { GET_USER } from '../../../gql/user';
+import useAuth from '../../../hooks/useAuth';
+import UserNotFound from '../../UserNotFound';
+import BasicModal from '../../Modal/BasicModal';
 import AvatarForm from '../AvatarForm/AvatarForm';
 
-import ImageNotFound from '../../assets/png/avatar.png';
+import ImageNotFound from '../../../assets/png/avatar.png';
 import './profile.scss';
+import HeaderProfile from './HeaderProfile/HeaderProfile';
+import SettingsForm from '../SettingsForm/SettingsForm';
 
 const Profile = ( { username } ) => {
 
     const [ showModal, setShowModal ] = useState( false );
     const [ titleModal, setTitleModal ] = useState('');
     const [ childrenModal, setChildrenModal ] = useState( null );
-    const { auth } = useAuth();
+    const { auth, logout } = useAuth();
     const same = auth.username === username;
 
     const { Column } = Grid;
 
-    const { data, loading, error } = useQuery( GET_USER, { 
+    const { data, loading, error, refetch } = useQuery( GET_USER, { 
         variables: { username }
     } );
 
     if (loading )return null;
     if (error) return <UserNotFound /> ;
 
-    const { getUser: { name, siteWeb, description, avatar } } = data;
+    const { getUser } = data;
+    const { name, siteWeb, description, avatar } = getUser;
 
     const handleModal = ( type ) => {
         switch (type) {
@@ -38,8 +41,19 @@ const Profile = ( { username } ) => {
                 )
                 setShowModal( true );
                 break;
-            case 'avatar':
-                
+            case 'settings':
+                setTitleModal("");
+                setChildrenModal(
+                    <SettingsForm 
+                        setTitleModal={ setTitleModal }
+                        setChildrenModal={ setChildrenModal }
+                        setShowModal={ setShowModal } 
+                        logout={ logout }
+                        user={ getUser }
+                        refetch={ refetch }
+                    />
+                )
+                setShowModal( true );
                 break;
         
             default:
@@ -58,7 +72,7 @@ const Profile = ( { username } ) => {
                     />
                 </Column>
                 <Column width={ 11 } className="profile__right">
-                   <div>HeaderProfile</div>
+                   <HeaderProfile username={ username } sameUser={ same } handleModal={ handleModal } />
                    <div>Followers</div>
                    <div className="other">
                        <p className="name"> { name } </p>

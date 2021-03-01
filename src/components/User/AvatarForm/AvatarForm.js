@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from "react-toastify";
 import { useMutation } from '@apollo/client';
-import { UPDATE_AVATAR, GET_USER } from '../../gql/user';
+import { UPDATE_AVATAR, GET_USER, DELETE_AVATAR } from '../../../gql/user';
 
 import './avatar-form.scss';
 
@@ -30,6 +30,22 @@ const AvatarForm = ({ setShowModal, auth }) => {
             });
         },
      } );
+     
+    const [ removeAvatar ] = useMutation(DELETE_AVATAR, {
+        update(cache) {
+            const { getUser } = cache.readQuery({
+                query: GET_USER, // query que queremos leer
+                variables: { username: auth.username }
+            });
+
+            cache.writeQuery({
+                query: GET_USER, // query que queremos sobreescribir
+                variables: { username: auth.username },
+                data: { getUser: { ...getUser, avatar: '' } },
+            })
+        }
+
+    });
 
     const onDrop = useCallback( async ( acceptedFile ) => {
         const file = acceptedFile[0];
@@ -54,12 +70,26 @@ const AvatarForm = ({ setShowModal, auth }) => {
         noKeyboard: true,
         multiple: false,
         onDrop,
-    })
+    });
+
+    const onDeleteAvatar = async () => {
+        try {
+            const result = await removeAvatar();
+            const { data: { deleteAvatar } } = result;
+            !deleteAvatar 
+                ? 
+                    ( toast.warning('Error al eliminar avatar') )
+                : 
+                    ( setShowModal( false ) )
+        } catch (error) {
+            console.log(error);
+        }
+    } 
 
     return (
         <div className='avatar-form'>
             <Button { ...getRootProps() } loading={ loading }> Cargar una foto </Button>
-            <Button> Eliminar foto actual </Button>
+            <Button onClick={ onDeleteAvatar }> Eliminar foto actual </Button>
             <Button onClick={ () => setShowModal( false ) }> Cancelar </Button>
             <input { ...getInputProps() } />
         </div>

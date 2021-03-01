@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { Container, Grid, Image } from 'semantic-ui-react';
 import RightHeader from './RightHeader';
+import Search from './Search';
 
 import Logo from '../../assets/png/instaclone.png';
 import './header.scss';
@@ -20,7 +21,7 @@ const Header = () => {
                         </Link>
                     </Column>
                     <Column width={ 10}>
-                        <p> Buscador </p>
+                        <Search />
                     </Column>
                     <Column width={ 3 }>
                         <RightHeader />

@@ -43,3 +43,25 @@ export const UPDATE_AVATAR = gql`
         }
     }
 `;
+
+export const DELETE_AVATAR = gql`
+    mutation deleteAvatar{
+        deleteAvatar
+    }
+`;
+
+export const UPDATE_USER = gql`
+    mutation updateUser($input: UserUpdateInput){
+        updateUser(input: $input)
+    }
+`;
+
+export const SEARCH = gql`
+    query search($search: String ) {
+        search(search: $search) {
+            name
+            username
+            avatar
+        }
+    }
+`;

@@ -26,5 +26,13 @@ code {
     text-align: center;
     margin: 20px 0 0 0;
   }
+
+  .btn-cancel {
+    width: 100%;
+    margin-top: 5px;
+    background-color: $cancel;
+    color: $font-light;
+  }
+
 }
 
