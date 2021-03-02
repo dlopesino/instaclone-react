@@ -6,14 +6,15 @@ import useAuth from '../../../hooks/useAuth';
 import UserNotFound from '../../UserNotFound';
 import BasicModal from '../../Modal/BasicModal';
 import AvatarForm from '../AvatarForm/AvatarForm';
-
 import ImageNotFound from '../../../assets/png/avatar.png';
-import './profile.scss';
 import HeaderProfile from './HeaderProfile/HeaderProfile';
 import SettingsForm from '../SettingsForm/SettingsForm';
 import Followers from './Followers';
+import { size } from 'lodash';
 
-const Profile = ( { username } ) => {
+import './profile.scss';
+
+const Profile = ( { username, publications  } ) => {
 
     const [ showModal, setShowModal ] = useState( false );
     const [ titleModal, setTitleModal ] = useState('');
@@ -74,7 +75,7 @@ const Profile = ( { username } ) => {
                 </Column>
                 <Column width={ 11 } className="profile__right">
                    <HeaderProfile username={ username } sameUser={ same } handleModal={ handleModal } />
-                   <Followers username={ username } />
+                   <Followers username={ username } totalPublications={ size(publications)} />
                    <div className="other">
                        <p className="name"> { name } </p>
                        { siteWeb && (

@@ -7,7 +7,7 @@ import { size } from 'lodash';
 
 import './followers.scss';
 
-const Followers = ({ username }) => {
+const Followers = ({ username, totalPublications }) => {
 
     const [ showModal, setShowModal ] = useState( false );
     const [ titleModal, setTitleModal ] = useState( '' );
@@ -80,7 +80,7 @@ const Followers = ({ username }) => {
         <>
             <div className='followers'>
                 <p> 
-                    <span>**</span> publicaciones 
+                    <span>{ totalPublications }</span> publicaciones 
                 </p>
                 <p className='link' onClick={ openFollowers }> 
                     <span>{ size( followers ) }</span> seguidores 
