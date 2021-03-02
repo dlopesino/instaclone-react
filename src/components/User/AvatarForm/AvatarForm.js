@@ -32,7 +32,7 @@ const AvatarForm = ({ setShowModal, auth }) => {
      } );
      
     const [ removeAvatar ] = useMutation(DELETE_AVATAR, {
-        update(cache) {
+        update(cache) { //sobreescribir la caché es más optimo para el servidor
             const { getUser } = cache.readQuery({
                 query: GET_USER, // query que queremos leer
                 variables: { username: auth.username }

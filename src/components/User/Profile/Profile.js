@@ -11,6 +11,7 @@ import ImageNotFound from '../../../assets/png/avatar.png';
 import './profile.scss';
 import HeaderProfile from './HeaderProfile/HeaderProfile';
 import SettingsForm from '../SettingsForm/SettingsForm';
+import Followers from './Followers';
 
 const Profile = ( { username } ) => {
 
@@ -73,7 +74,7 @@ const Profile = ( { username } ) => {
                 </Column>
                 <Column width={ 11 } className="profile__right">
                    <HeaderProfile username={ username } sameUser={ same } handleModal={ handleModal } />
-                   <div>Followers</div>
+                   <Followers username={ username } />
                    <div className="other">
                        <p className="name"> { name } </p>
                        { siteWeb && (
