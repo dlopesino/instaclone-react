@@ -1,0 +1,31 @@
+@import '../../../../scss/index.scss';
+
+.feedbacks {
+
+    height: calc(100% - 80px);
+    overflow-y: scroll;
+
+    .feedback {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid $border-grey;
+        color: $font-dark;
+
+        img {
+            margin-right: 15px !important;
+        }
+
+        p{
+            margin: 0;
+
+            &:first-of-type {
+                font-weight: bold;
+            }
+
+            &:last-of-type {
+                color: $font-grey;
+            }
+        }
+    }
+}
