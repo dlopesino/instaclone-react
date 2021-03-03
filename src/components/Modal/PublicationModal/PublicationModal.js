@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import { GET_FEEDBACKS } from '../../../gql/feedback';
 
 import './publication-modal.scss';
+import Actions from './Actions/Actions';
 
 const PublicationModal = ({ showModal, setShowModal, publication }) => {
 
@@ -29,7 +30,7 @@ const PublicationModal = ({ showModal, setShowModal, publication }) => {
                 />
                 <Column className="publication-modal__right" width={6}>
                     <FeedBacks feedBacks={ getFeedBacks } loading={ loading } />
-                    <div> Actions </div>
+                    <Actions publication={ publication } />
                     <FeedBackForm publication={ publication } refetch={ refetch } />
                 </Column>
             </Grid>
