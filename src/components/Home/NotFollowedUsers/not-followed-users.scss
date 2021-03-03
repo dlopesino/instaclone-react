@@ -1,0 +1,22 @@
+@import '../../../scss/index.scss';
+
+.not-followed-users {
+
+    display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+
+    &__user {
+        color: $font-dark;
+        padding: 5px 5px;
+
+        img {
+            margin-right: 15px !important;
+        }
+
+        span {
+            font-weight: bold;
+        }
+    }
+
+}

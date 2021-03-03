@@ -20,3 +20,19 @@ export const GET_PUBLICATIONS = gql`
         }
     }
 `;
+
+export const GET_FOLLOWED_POSTS = gql`
+    query getFollowedPosts {
+        getFollowedPosts {
+            id
+            idUser {
+                name
+                username
+                avatar
+            }
+            file
+            fileType
+            created_at
+        }
+    }
+`;
